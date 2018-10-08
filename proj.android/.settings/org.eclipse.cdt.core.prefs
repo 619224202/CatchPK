@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+environment/project/0.756827735/COCOS2DX/delimiter=;
+environment/project/0.756827735/COCOS2DX/operation=append
+environment/project/0.756827735/COCOS2DX/value=D\:\\tool\\cocos2dx\\cocos2d-x-2.1.4
+environment/project/0.756827735/NDK_MODULE_PATH/delimiter=;
+environment/project/0.756827735/NDK_MODULE_PATH/operation=append
+environment/project/0.756827735/NDK_MODULE_PATH/value=D\:\\tool\\cocos2dx\\cocos2d-x-2.1.4;D\:\\tool\\cocos2dx\\cocos2d-x-2.1.4\\cocos2dx\\platform\\third_party\\android\\prebuilt
+environment/project/0.756827735/NDK_ROOT/delimiter=;
+environment/project/0.756827735/NDK_ROOT/operation=replace
+environment/project/0.756827735/NDK_ROOT/value=D\:\\tool\\android-ndk\\android-ndk-r8e
+environment/project/0.756827735/append=true
+environment/project/0.756827735/appendContributed=true
