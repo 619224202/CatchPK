@@ -1,4 +1,4 @@
-#include "ShopMenu.h"
+﻿#include "ShopMenu.h"
 #include "MainMenu.h"
 #include "LevelMenu.h"
 #include "baseRes.h"
@@ -1695,6 +1695,13 @@ void ccbShopMenu::Appear()
     m_bIn		= true;
     VisibleSet(0.0f);
     setTouchEnabled(true);
+	setKeypadEnabled(true);
+	w_butIndex = 0;
+	w_goodsPage = 0;
+	w_groupIndex = 0;
+	w_goodIndex = 0;
+	isInInfo = false;
+	isInRecharge = false;
     m_AnimationManager->runAnimationsForSequenceNamedTweenDuration("Default Timeline", 0.0f);
 }
 
@@ -1754,6 +1761,7 @@ void ccbShopMenu::ReturnCallBack( float _t )
             break;
     }
     ((ccbLayer*)CMainMenu::GetMenuMain())->setTouchEnabled(true);
+	((ccbLayer*)CMainMenu::GetMenuMain())->setKeypadEnabled(true);
 }
 
 void ccbShopMenu::Timer( float _dt )

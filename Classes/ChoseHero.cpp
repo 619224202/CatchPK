@@ -1,4 +1,4 @@
-#include "ChoseHero.h"
+﻿#include "ChoseHero.h"
 #include "MainMenu.h"
 #include "AppDelegate.h"
 #include "Flash.h"
@@ -312,7 +312,7 @@ void ccbChoseHero::keyEnterClicked(){
 			if(AppDelegate::s_Hero3==0){
 				OnHero3();
 			}else{
-				OnBuy3Buy();
+				OnBuy3Buy(this);
 			}
 		}
 		return;
@@ -460,11 +460,12 @@ void ccbChoseHero::keyNumClicked(int keyNum){
 		}else if(keyNum==kTypeNum2){
 
 		}else if(keyNum==kTypeNum0){
-
+			keyBackClicked();
 		}
 	}else {
 		if(keyNum==kTypeNum0){
 			OnBuy3Disappear();
+			//keyBackClicked();
 		}
 	}
 }
@@ -1197,9 +1198,16 @@ void ccbChoseHero::CallBack( cocos2d::CCNode* _pNode )
 
 void ccbChoseHero::keyBackClicked()
 {
-	if ( m_bPress || m_bCanChose )
-		return;
-	m_bPress = true;
-	CCScene* pScene = CFirstLogin::CreateScene(false);
-	AppDelegate::ChangeScene( pScene );
+	if (!isShowRobit && !isShowModules) {
+		if (m_bPress || m_bCanChose)
+			return;
+		m_bPress = true;
+		CCScene* pScene = CFirstLogin::CreateScene(false);
+		AppDelegate::ChangeScene(pScene);
+	}
+	else {
+		OnBuy3Disappear();
+			//keyBackClicked();
+	}
+	
 }

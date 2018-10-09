@@ -1,4 +1,4 @@
-#include "LoginMenu.h"
+﻿#include "LoginMenu.h"
 #include "MainMenu.h"
 #include "ChoseHero.h"
 #include "AppDelegate.h"
@@ -134,20 +134,30 @@ void ccbLoginMenu::keyEnterClicked(){
 			OnShop(this);
 			break;
 		case 2:
-			OnHelp(this);
+			/*OnHelp(this);
 			groupIndex = RankGroup;
-			menuButIndex[RankGroup] = 0;
-			break;
-		case 3:
+			menuButIndex[RankGroup] = 0;*/
+			//移除排行榜,为进入成就界面
 			OnAchieve(this);
 			groupIndex = AchieveGroup;
 			achievePage = 0;
 			menuButIndex[AchieveGroup] = 0;
 			break;
-		case 4:
+		case 3:
+
+			/*OnAchieve(this);
+			groupIndex = AchieveGroup;
+			achievePage = 0;
+			menuButIndex[AchieveGroup] = 0;*/
+			//进入其他界面
 			OnAbout(this);
 			groupIndex = AboutGroup;
 			menuButIndex[AboutGroup] = 0;
+			break;
+		case 4:
+			/*OnAbout(this);
+			groupIndex = AboutGroup;
+			menuButIndex[AboutGroup] = 0;*/
 			break;
 		case 5:
 			OnExitGame();
@@ -178,7 +188,30 @@ void ccbLoginMenu::keyEnterClicked(){
 			if(!m_iShowMode){
 				int achieveIndex = achievePage*4+menuButIndex[AchieveGroup];
 				if ( m_iAchive[achieveIndex] == 100 && AppDelegate::s_Achieve[achieveIndex] == 0){
-					OnGetAchive(this);
+					//OnGetAchive(this);
+					
+					//OnGetAchive(menu->getChildByTag(0));
+
+					if (m_bExit)
+						return;
+					if (getChildByTag(3438))
+						getChildByTag(3438)->removeFromParentAndCleanup(true);
+					if (getChildByTag(3439))
+						getChildByTag(3439)->removeFromParent();
+					CCMenu* menu = (CCMenu*)(m_pBoard->getChildByTag(100 + achieveIndex)->getChildByTag(achieveIndex));
+					//CCMenu *menu = (CCMenu*)((CCMenuItem*)sender)->getParent();
+					int i = menu->getTag();
+					if (AppDelegate::s_Achieve[i] == 1)
+						return;
+					AppDelegate::AudioPlayEffect("MS3/getAchieve.mp3");
+					AppDelegate::s_Achieve[i] = 1;
+					AppDelegate::s_Medal += AchieveAdd::GetMedal(i);
+					CCNode* pParent = menu->getParent();
+					menu->removeFromParentAndCleanup(true);
+					CCSprite* pSprite = CCSprite::create("tu7/yilingqu.png");
+					pSprite->setPosition(ccp(500, 58));
+					pParent->addChild(pSprite, 0, i);
+					AppDelegate::SaveAchievement(i);
 				}
 			}
 		}
@@ -215,14 +248,18 @@ void ccbLoginMenu::keyArrowClicked(int arrow){
 			if(menuButIndex[MainGroup]==0){
 				menuButIndex[MainGroup] = 5;
 			}else if(menuButIndex[MainGroup]>=1 && menuButIndex[MainGroup]<4){
-				menuButIndex[MainGroup]++;
+				if (menuButIndex[MainGroup] == 3) {
+					menuButIndex[MainGroup]=5;
+				}else {
+					menuButIndex[MainGroup]++;
+				}
 			}
 			break;
 		case kTypeDownArrowClicked:
 			if(menuButIndex[MainGroup]==0){
 				menuButIndex[MainGroup] = 1;
 			}else if(menuButIndex[MainGroup]==5){
-				menuButIndex[MainGroup] = 4;
+				menuButIndex[MainGroup] = 3;
 			}else if(menuButIndex[MainGroup]==6){
 				menuButIndex[MainGroup] = 5;
 			}
@@ -354,6 +391,11 @@ void ccbLoginMenu::keyNumClicked(int keyNum){
 	case kTypeNum1:
 		if(groupIndex==AchieveGroup){
 			ChangeAchieveShow(this);
+		}
+		else if (groupIndex == AboutGroup) {
+			if (menuButIndex[AboutGroup] == 1) {
+				OnSetVoice(this);
+			};
 		}
 		break;
 	}
@@ -562,7 +604,7 @@ void ccbLoginMenu::onNodeLoaded(cocos2d::CCNode * pNode,  cocos2d::extension::CC
 				pBtnNode = (CCNode*)CCSprite::create("tu7/yilingqu.png");
 			else
 			{
-				CCMenuItem* pItem = CCMenuItemImage::create( 
+				 pItem = CCMenuItemImage::create( 
 					"tu7/weilingqu.png", "tu7/weilingqu2.png", this, menu_selector(ccbLoginMenu::OnGetAchive));
 				pItem->setPosition(ccp(0,0));
 				pBtnNode = (CCNode*)CCMenu::create(pItem, NULL);
@@ -1433,7 +1475,7 @@ void ccbLoginMenu::OnGetAchive( cocos2d::CCObject* sender )
 		getChildByTag(3438)->removeFromParentAndCleanup(true);
 	if ( getChildByTag(3439) )
 		getChildByTag(3439)->removeFromParent();
-	CCMenu *menu = (CCMenu*)((CCMenuItem*)sender)->getParent();
+	CCMenu *menu = (CCMenu*)((CCMenuItem*)sender)->getParent();	
 	int i = menu->getTag();
 	if ( AppDelegate::s_Achieve[i] == 1 )
 		return;

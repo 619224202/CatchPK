@@ -1,4 +1,4 @@
-#ifndef _CCB_LOGINMENU_H_
+ï»¿#ifndef _CCB_LOGINMENU_H_
 #define _CCB_LOGINMENU_H_
 
 #include "cocos2d.h"
@@ -61,7 +61,7 @@ public:
 	void Show(cocos2d::CCNode* sender = NULL);
 
 	cocos2d::CCSprite* createHandelCreator();
-	//µã»÷ÊÂ¼þ
+	//ç‚¹å‡»äº‹ä»¶
 	virtual void ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent);
 	virtual void ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent);
 	virtual void ccTouchesEnded(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent);
@@ -142,6 +142,7 @@ private:
 	cocos2d::CCTextFieldTTF*	m_pNameInput;
 	cocos2d::CCTextFieldTTF*	m_pNameInput1;
 	cocos2d::CCNode*			m_pRankList;
+	cocos2d::CCMenuItem*		pItem;
 	
 	bool	m_bInput;
 	std::string m_sNameSave;
